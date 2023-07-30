@@ -10,19 +10,19 @@ const SiteSkeleton = () => {
         <Box
           justifyContent={"space-between"}
           display={"flex"}
-          sx={{ flexDirection: { xs: "column", sm: "row" } }}
+          sx={{ flexDirection: { xs: "column", lg: "row" } }}
         >
           <Skeleton
             variant="rectangular"
             height="5vh"
             animation="wave"
-            sx={{ width: { xs: "100%", sm: "66%" }, mb: { xs: 2, sm: 0 } }}
+            sx={{ width: { xs: "100%", lg: "66%" }, mb: { xs: 2, lg: 0 } }}
           />
           <Skeleton
             variant="rectangular"
             height="5vh"
             animation="wave"
-            sx={{ width: { xs: "100%", sm: "25%" } }}
+            sx={{ width: { xs: "100%", lg: "25%" } }}
           />
         </Box>
         <Grid container justifyContent={"space-between"} display={"flex"}>

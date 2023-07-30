@@ -9,7 +9,7 @@ const additionalProductCount = 12;
 interface ProductStoreState {
   products: Product[];
   uniqueCategories: string[];
-  loading: boolean; // Add a loading state variable
+  loading: boolean;
   setProducts: (products: Product[]) => void;
   generateMoreProducts: () => void;
 }
@@ -17,16 +17,18 @@ interface ProductStoreState {
 export const useProductStore = create<ProductStoreState>((set) => ({
   products: generateFakeProductData(defaultProductCount),
   uniqueCategories: [],
-  loading: false, // Initialize loading as false
+  loading: false,
+
   setProducts: (products) => {
     const uniqueCategories = Array.from(
       new Set(products.map((product) => product.category))
     );
     set({ products, uniqueCategories });
   },
+
   generateMoreProducts: async () => {
-    set({ loading: true }); // Set loading to true while generating more products
-    await new Promise((resolve) => setTimeout(resolve, 1500)); // Introduce a 1.5-second delay
+    set({ loading: true });
+    await new Promise((resolve) => setTimeout(resolve, 1500));
     set((state) => {
       const newProducts = [
         ...state.products,
@@ -38,7 +40,7 @@ export const useProductStore = create<ProductStoreState>((set) => ({
           ...newProducts.map((product) => product.category),
         ])
       );
-      return { products: newProducts, uniqueCategories, loading: false }; // Set loading back to false after generating new products
+      return { products: newProducts, uniqueCategories, loading: false };
     });
   },
 }));
