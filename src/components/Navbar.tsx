@@ -1,6 +1,6 @@
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import TuneIcon from "@mui/icons-material/Tune";
-import { Badge, Box, Drawer, Hidden } from "@mui/material";
+import { Badge, Box, Drawer, Hidden, Tooltip } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import IconButton from "@mui/material/IconButton";
 import Toolbar from "@mui/material/Toolbar";
@@ -36,12 +36,13 @@ const Navbar = ({ uniqueCategories }: NavbarProps) => {
         </Hidden>
         <Typography variant="h6">BipWebCase</Typography>
         <Box sx={{ flexGrow: 1 }}></Box>
-
-        <IconButton color="inherit" onClick={toggleCart}>
-          <Badge badgeContent={cartItems.length} color="error">
-            <ShoppingCartIcon />
-          </Badge>
-        </IconButton>
+        <Tooltip title="Open Cart">
+          <IconButton color="inherit" onClick={toggleCart}>
+            <Badge badgeContent={cartItems.length} color="error">
+              <ShoppingCartIcon />
+            </Badge>
+          </IconButton>
+        </Tooltip>
       </Toolbar>
       <Drawer
         anchor="right"
@@ -74,7 +75,7 @@ const Navbar = ({ uniqueCategories }: NavbarProps) => {
         }}
       >
         <Box height="100%">
-          <DrawerHeader toggleCart={toggleFilters} title="Filters" />
+          <DrawerHeader toggleDrawer={toggleFilters} title="Filters" />
           <Filters
             categories={uniqueCategories}
             onCategoryChange={setSelectedCategories}

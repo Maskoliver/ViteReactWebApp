@@ -9,6 +9,7 @@ import {
   CardMedia,
   Divider,
   IconButton,
+  Tooltip,
   Typography,
   debounce,
 } from "@mui/material";
@@ -49,7 +50,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         flexDirection: "column",
       }}
     >
-      <CardMedia component="img" image={product.image} />
+      <CardMedia component="img" image={product.image} loading="lazy" />
 
       <CardContent sx={{ flexGrow: 1 }}>
         <Box display="flex" justifyContent="space-between">
@@ -67,17 +68,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
       <CardActions>
         <Box flexGrow={1} display="flex" alignItems="center">
-          <IconButton aria-label="decrease" onClick={handleDecreaseQuantity}>
-            <RemoveIcon />
-          </IconButton>
+          <Tooltip title="Decrease Quantity">
+            <IconButton aria-label="decrease" onClick={handleDecreaseQuantity}>
+              <RemoveIcon />
+            </IconButton>
+          </Tooltip>
           <Typography variant="h6">{quantity}</Typography>
-          <IconButton aria-label="increase" onClick={handleIncreaseQuantity}>
-            <AddIcon />
-          </IconButton>
+          <Tooltip title="Increase Quantity">
+            <IconButton aria-label="increase" onClick={handleIncreaseQuantity}>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
         </Box>
-        <IconButton aria-label="add to cart" onClick={handleAddToCart}>
-          <ShoppingCartIcon />
-        </IconButton>
+        <Tooltip title="Add to Cart">
+          <IconButton aria-label="add to cart" onClick={handleAddToCart}>
+            <ShoppingCartIcon />
+          </IconButton>
+        </Tooltip>
       </CardActions>
     </Card>
   );

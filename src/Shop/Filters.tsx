@@ -4,6 +4,7 @@ import {
   AccordionDetails,
   AccordionSummary,
   Box,
+  CircularProgress,
   Divider,
   Grid,
   TextField,
@@ -14,14 +15,15 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFiltersStore } from "../stores/filtersStore";
+import { useProductStore } from "../stores/productStore";
 
 interface FiltersProps {
   categories: string[];
   onCategoryChange: (selectedCategories: string[]) => void;
-  minPrice: number; // Add minPrice prop
-  maxPrice: number; // Add maxPrice prop
+  minPrice: number;
+  maxPrice: number;
 }
 
 const Filters: React.FC<FiltersProps> = ({
@@ -31,8 +33,21 @@ const Filters: React.FC<FiltersProps> = ({
   maxPrice,
 }) => {
   const { selectedCategories, setPriceFilter } = useFiltersStore();
-  const [expanded, setExpanded] = React.useState<string | false>("filters1");
-  const [expanded2, setExpanded2] = React.useState<string | false>("filters2");
+  const [expanded, setExpanded] = useState<string | false>("filters1");
+  const [expanded2, setExpanded2] = useState<string | false>("filters2");
+  const { uniqueCategories, loading } = useProductStore((state) => state);
+
+  useEffect(() => {
+    useProductStore.setState({ uniqueCategories: [...categories] });
+  }, [categories]);
+
+  useEffect(() => {
+    if (loading) {
+      setExpanded(false);
+    } else {
+      setExpanded("filters1");
+    }
+  }, [loading]);
 
   const handleFilterSectionChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
@@ -82,30 +97,46 @@ const Filters: React.FC<FiltersProps> = ({
           <Typography>Categories</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Divider />
-          <List dense sx={{ width: "100%", overflowWrap: "anywhere" }}>
-            {categories.map((category) => {
-              const labelId = `category-list-${category}`;
-              return (
-                <ListItem
-                  key={category}
-                  secondaryAction={
-                    <Checkbox
-                      edge="end"
-                      onChange={handleCategoryToggle(category)}
-                      checked={selectedCategories.indexOf(category) !== -1}
-                      inputProps={{ "aria-labelledby": labelId }}
-                    />
-                  }
-                  disablePadding
-                >
-                  <ListItemButton onClick={handleCategoryToggle(category)}>
-                    <ListItemText id={labelId} primary={category} />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
+          {loading ? (
+            <Box
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              width="100%"
+              height={200}
+            >
+              <CircularProgress />
+            </Box>
+          ) : (
+            <>
+              <Divider />
+              <List dense sx={{ width: "100%", overflowWrap: "anywhere" }}>
+                {uniqueCategories.map((category) => (
+                  <ListItem
+                    key={category}
+                    secondaryAction={
+                      <Checkbox
+                        edge="end"
+                        onChange={handleCategoryToggle(category)}
+                        checked={selectedCategories.includes(category)}
+                        inputProps={{
+                          "aria-labelledby": `category-list-${category}`,
+                        }}
+                      />
+                    }
+                    disablePadding
+                  >
+                    <ListItemButton onClick={handleCategoryToggle(category)}>
+                      <ListItemText
+                        id={`category-list-${category}`}
+                        primary={category}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          )}
         </AccordionDetails>
       </Accordion>
       <Accordion

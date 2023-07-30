@@ -1,14 +1,14 @@
 // Shop.tsx
 
 // ... Existing imports
-import { Grid, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, CircularProgress, Grid, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { Product } from "../lib/types";
 import { useFiltersStore } from "../stores/filtersStore";
+import { useProductStore } from "../stores/productStore";
 import Filters from "./Filters";
 import Products from "./Products";
 import SearchSortSection from "./SearchSortSection";
-import { useProductStore } from "../stores/productStore";
 interface ShopProps {
   uniqueCategories: string[];
 }
@@ -18,22 +18,33 @@ const Shop = ({ uniqueCategories }: ShopProps) => {
   const [sortOption, setSortOption] = useState("default");
   const { selectedCategories, minPrice, maxPrice, setSelectedCategories } =
     useFiltersStore();
+  const { products, loading, generateMoreProducts } = useProductStore();
 
-  const allProducts = useProductStore((state) => state.products);
+  useEffect(() => {
+    const handleScroll = () => {
+      const isAtBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight;
+      if (isAtBottom) {
+        generateMoreProducts();
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [loading, generateMoreProducts]);
 
   const handleCategoryChange = (selectedCategories: string[]) => {
     setSelectedCategories(selectedCategories);
   };
-
   const handleSearchChange = (searchQuery: string) => {
     setSearchQuery(searchQuery);
   };
-
   const handleSortChange = (sortOption: string) => {
     setSortOption(sortOption);
   };
 
-  const filteredProducts = allProducts.filter((product: Product) => {
+  const filteredProducts = products.filter((product: Product) => {
     const isInSelectedCategory =
       selectedCategories.length === 0 ||
       selectedCategories.includes(product.category);
@@ -87,6 +98,11 @@ const Shop = ({ uniqueCategories }: ShopProps) => {
           onSortChange={handleSortChange}
         />
         <Products products={sortedProducts} />
+        {loading && (
+          <Box display="flex" justifyContent="center" mt={4}>
+            <CircularProgress />
+          </Box>
+        )}
       </Grid>
     </Grid>
   );

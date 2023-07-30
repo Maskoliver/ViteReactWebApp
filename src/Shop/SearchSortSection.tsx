@@ -1,3 +1,4 @@
+import ClearIcon from "@mui/icons-material/Clear";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Grid,
@@ -34,6 +35,11 @@ const SearchSortSection: React.FC<SearchSortSectionProps> = ({
     onSortChange(sortOption);
   };
 
+  const handleClearSearch = () => {
+    setSearchQuery("");
+    onSearch("");
+  };
+
   return (
     <Grid container spacing={2} alignItems="center">
       <Grid item xs={12} lg={8}>
@@ -49,6 +55,13 @@ const SearchSortSection: React.FC<SearchSortSectionProps> = ({
               <InputAdornment position="start">
                 <IconButton>
                   <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+            endAdornment: searchQuery && (
+              <InputAdornment position="end">
+                <IconButton onClick={handleClearSearch}>
+                  <ClearIcon />
                 </IconButton>
               </InputAdornment>
             ),

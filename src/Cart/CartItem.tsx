@@ -25,15 +25,12 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
   const handleRemoveFromCart = () => {
     removeFromCart(item.id, true);
   };
-
   const calculateTotal = () => {
     return item.price * (item.quantityInCart ?? 1);
   };
-
   const handleIncreaseQuantity = debounce(() => {
     addToCart({ ...item, quantityInCart: (item.quantityInCart ?? 0) + 1 });
   }, 50);
-
   const handleDecreaseQuantity = debounce(() => {
     if (item.quantityInCart === 1) {
       return;
@@ -61,6 +58,7 @@ const CartItem: React.FC<CartItemProps> = ({ item }) => {
               aspectRatio: "1 / 1",
               borderRadius: "0px",
             }}
+            alt={item.description}
           />
         </Grid>
         <Grid item xs={12} sm={8}>

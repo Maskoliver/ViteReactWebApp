@@ -1,11 +1,11 @@
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 
 interface DrawerHeaderProps {
-  toggleCart: () => void;
+  toggleDrawer: () => void;
   title: string;
 }
-const DrawerHeader = ({ toggleCart, title }: DrawerHeaderProps) => {
+const DrawerHeader = ({ toggleDrawer, title }: DrawerHeaderProps) => {
   return (
     <Box
       display="flex"
@@ -16,9 +16,11 @@ const DrawerHeader = ({ toggleCart, title }: DrawerHeaderProps) => {
       p={2}
     >
       <Typography variant="h5">{title}</Typography>
-      <IconButton color="inherit" onClick={toggleCart}>
-        <CloseIcon />
-      </IconButton>
+      <Tooltip title="Close">
+        <IconButton color="inherit" onClick={toggleDrawer}>
+          <CloseIcon />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 };

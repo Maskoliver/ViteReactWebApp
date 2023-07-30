@@ -17,7 +17,7 @@ const Cart = () => {
 
   return (
     <Stack direction="column">
-      <DrawerHeader toggleCart={toggleCart} title="My Cart" />
+      <DrawerHeader toggleDrawer={toggleCart} title="My Cart" />
       <Box>
         {cartItems.map((item) => (
           <CartItem key={item.id} item={item} />
@@ -30,7 +30,6 @@ const Cart = () => {
             <Typography variant="h6">Total Price: </Typography>
             <Typography variant="h6">₺ {calculateTotal()}</Typography>
           </Box>
-
           <Box
             mt={1}
             width="100%"
@@ -40,7 +39,6 @@ const Cart = () => {
             <Button variant="contained" color="error" onClick={clearCart}>
               Clear Cart
             </Button>
-
             <Button variant="contained" color="primary">
               Checkout
             </Button>
