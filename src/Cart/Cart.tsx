@@ -1,7 +1,7 @@
-import CloseIcon from "@mui/icons-material/Close";
 import ProductionQuantityLimitsIcon from "@mui/icons-material/ProductionQuantityLimits";
-import { Button, Divider, IconButton, Stack, Typography } from "@mui/material";
+import { Button, Divider, Stack, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import DrawerHeader from "../components/DrawerHeader";
 import { useCartStore } from "../stores/cartStore";
 import CartItem from "./CartItem";
 
@@ -17,19 +17,7 @@ const Cart = () => {
 
   return (
     <Stack direction="column">
-      <Box
-        display="flex"
-        alignItems="center"
-        bgcolor="primary.main"
-        justifyContent={"space-between"}
-        color="white"
-        p={2}
-      >
-        <Typography variant="h5">My Cart</Typography>
-        <IconButton color="inherit" onClick={toggleCart}>
-          <CloseIcon />
-        </IconButton>
-      </Box>
+      <DrawerHeader toggleCart={toggleCart} title="My Cart" />
       <Box>
         {cartItems.map((item) => (
           <CartItem key={item.id} item={item} />

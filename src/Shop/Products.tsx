@@ -1,5 +1,5 @@
 import { Box, Grid } from "@mui/material";
-import { Product } from "../types";
+import { Product } from "../lib/types";
 import ProductCard from "./ProductCard";
 
 interface ProductProps {

@@ -13,8 +13,8 @@ import {
   debounce,
 } from "@mui/material";
 import { useState } from "react";
+import { Product } from "../lib/types";
 import { useCartStore } from "../stores/cartStore";
-import { Product } from "../types";
 
 interface ProductCardProps {
   product: Product;

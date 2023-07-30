@@ -13,8 +13,8 @@ import {
   Typography,
   debounce,
 } from "@mui/material";
+import { Product } from "../lib/types";
 import { useCartStore } from "../stores/cartStore";
-import { Product } from "../types";
 
 interface CartItemProps {
   item: Product;

@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { Product } from "../types";
+import { Product } from "./types";
 
 export const generateFakeProductData = (count: number): Product[] => {
   const products: Product[] = [];

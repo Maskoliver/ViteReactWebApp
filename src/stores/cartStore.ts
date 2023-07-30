@@ -1,6 +1,6 @@
 // cartStore.ts
 import { create } from "zustand";
-import { Product } from "../types";
+import { Product } from "../lib/types";
 
 type CartStore = {
   isCartOpen: boolean;
