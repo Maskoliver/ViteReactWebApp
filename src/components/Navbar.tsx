@@ -18,12 +18,7 @@ interface NavbarProps {
 
 const Navbar = ({ uniqueCategories }: NavbarProps) => {
   const { isCartOpen, toggleCart, cartItems } = useCartStore();
-  const {
-    setSelectedCategories,
-    setPriceFilter,
-    minPrice, // Add minPrice from the store
-    maxPrice, // Add maxPrice from the store
-  } = useFiltersStore();
+  const { setSelectedCategories, minPrice, maxPrice } = useFiltersStore();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
 
   const toggleFilters = () => {
@@ -83,9 +78,8 @@ const Navbar = ({ uniqueCategories }: NavbarProps) => {
           <Filters
             categories={uniqueCategories}
             onCategoryChange={setSelectedCategories}
-            onPriceChange={setPriceFilter}
-            minPrice={minPrice} // Pass minPrice as prop
-            maxPrice={maxPrice} // Pass maxPrice as prop
+            minPrice={minPrice}
+            maxPrice={maxPrice}
           />
         </Box>
       </Drawer>

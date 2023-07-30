@@ -10,21 +10,11 @@ interface ShopProps {
 }
 
 const Shop = ({ allProducts, uniqueCategories }: ShopProps) => {
-  const {
-    selectedCategories,
-    minPrice,
-    maxPrice,
-    setSelectedCategories,
-    setPriceFilter,
-  } = useFiltersStore();
+  const { selectedCategories, minPrice, maxPrice, setSelectedCategories } =
+    useFiltersStore();
 
   const handleCategoryChange = (selectedCategories: string[]) => {
     setSelectedCategories(selectedCategories);
-  };
-
-  // Function to handle price change
-  const handlePriceChange = (minPrice: number, maxPrice: number) => {
-    setPriceFilter(minPrice, maxPrice);
   };
 
   // Filtering the products based on the selected categories and price
@@ -40,11 +30,12 @@ const Shop = ({ allProducts, uniqueCategories }: ShopProps) => {
   return (
     <Grid container mt={8}>
       <Grid item xs={2} p={2} sx={{ display: { xs: "none", lg: "block" } }}>
-        <Typography variant="h6">Filters</Typography>
+        <Typography variant="h6" textAlign={"center"}>
+          Filters
+        </Typography>
         <Filters
           categories={uniqueCategories}
           onCategoryChange={handleCategoryChange}
-          onPriceChange={handlePriceChange}
           minPrice={minPrice}
           maxPrice={maxPrice}
         />

@@ -20,7 +20,6 @@ import { useFiltersStore } from "../stores/filtersStore";
 interface FiltersProps {
   categories: string[];
   onCategoryChange: (selectedCategories: string[]) => void;
-  onPriceChange: (minPrice: number, maxPrice: number) => void;
   minPrice: number; // Add minPrice prop
   maxPrice: number; // Add maxPrice prop
 }
@@ -73,8 +72,9 @@ const Filters: React.FC<FiltersProps> = ({
   };
 
   return (
-    <Box bgcolor="lightblue" flex={1} p={2}>
+    <Box flex={1} p={2}>
       <Accordion
+        elevation={0}
         expanded={expanded === "filters1"}
         onChange={handleFilterSectionChange("filters1")}
       >
@@ -111,6 +111,7 @@ const Filters: React.FC<FiltersProps> = ({
       <Accordion
         expanded={expanded2 === "filters2"}
         onChange={handleFilterSectionChange("filters2")}
+        elevation={0}
       >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           <Typography>Price</Typography>
